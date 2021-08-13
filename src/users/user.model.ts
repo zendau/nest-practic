@@ -1,14 +1,19 @@
+import { Roles } from '../roles/roles.model'
 
-import { Column, Model, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescript'
+import { RolesUsers } from 'src/roles/roles-users.model'
 
-@Table
+@Table({createdAt: false, updatedAt: false})
 export class User extends Model {
-  @Column
-  firstName: string;
+  @Column({autoIncrement: true, primaryKey: true, type: DataType.INTEGER})
+  id: number
 
-  @Column
-  lastName: string;
+  @Column({unique: true, allowNull: false})
+  login: string;
 
-  @Column({ defaultValue: true })
-  isActive: boolean;
+  @Column({ allowNull: false })
+  password: string
+
+  @BelongsToMany(() => Roles, () => RolesUsers)
+  roles: Roles[]
 }
