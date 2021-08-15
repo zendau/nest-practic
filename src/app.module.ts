@@ -8,6 +8,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
+import { PostsModule } from './posts/posts.module';
+import { FilesService } from './files/files.service';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -33,9 +36,11 @@ import { RolesModule } from './roles/roles.module';
    UsersModule,
    AuthModule,
    RolesModule,
+   PostsModule,
+   FilesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, FilesService],
 })
 export class AppModule {
   

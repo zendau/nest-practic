@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Post } from 'src/posts/posts.model';
 import { RolesService } from 'src/roles/roles.service';
 import { CreateUser } from './dto/create-user';
 import { User } from './user.model';
@@ -27,6 +28,10 @@ export class UsersService {
         user.$set("roles", role.id)
         user.roles = [role]
         return user
+    }
+
+    async getAllUserPosts(id: number) {
+        return await this.userModel.findOne({where: {id}, include: [Post]})
     }
     
 }
