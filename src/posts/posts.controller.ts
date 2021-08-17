@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Param, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Post as PostModel } from './posts.model';
+import { JwtAuthGuard } from 'src/auth/auth.guard';
 
 @ApiTags('Post module')
 @Controller('posts')
@@ -12,6 +13,7 @@ export class PostsController {
 
   @ApiOperation({summary: 'Создание поста'})
   @ApiResponse({status: 200, type: PostModel})
+  @UseGuards(JwtAuthGuard)
   @Post("create")
   @UseInterceptors(FileInterceptor('file'))
   createPost(
@@ -23,6 +25,7 @@ export class PostsController {
 
   @ApiOperation({summary: 'Получение всех постов указанного пользователя'})
   @ApiResponse({status: 200, type: [PostModel]})
+  @UseGuards(JwtAuthGuard)
   @Get("/all/:id")
   findAll(@Param('id') id: number) {
     console.log(id)

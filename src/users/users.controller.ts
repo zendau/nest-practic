@@ -15,7 +15,6 @@ export class UsersController {
 
     @ApiOperation({summary: 'Вывод всех пользователей'})
     @ApiResponse({status: 200, type: [User]})
-    //@UseGuards(JwtAuthGuard)
     @Roles(Role.Admin)
     @UseGuards(RolesGuard)
     @Get()
@@ -25,6 +24,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'Создание пользователя'})
     @ApiResponse({status: 200, type: User, })
+    @UseGuards(JwtAuthGuard)
     @Post()
     async createOneUser(@Body() createUsertDto: CreateUser) {
         return this.usersServies.createOne(createUsertDto)

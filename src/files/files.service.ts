@@ -8,7 +8,7 @@ export class FilesService {
     async createFile(file : Express.Multer.File) : Promise<string>  {
         if (file.mimetype.includes("image")) {
             
-            const foulder = "public"
+            const foulder = process.env.PUBLIC_FOULDER
             
             const fileExt = path.extname(file.originalname).slice(1)
 
