@@ -2,7 +2,6 @@ import { UsersService } from './../users/users.service';
 import { FilesService } from './../files/files.service';
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './posts.model';
 import { InjectModel } from '@nestjs/sequelize';
 
@@ -26,15 +25,5 @@ export class PostsService {
     return posts.posts
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
-  }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} post`;
-  }
 }
